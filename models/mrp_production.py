@@ -12,7 +12,7 @@ class MrpProduction(models.Model):
     def action_confirm(self):
         res = super(MrpProduction,self).action_confirm()
         for each in self:
-            each.move_finished_ids._set_quantity_done(each.product_qty)
+            each.move_finished_ids.filtered(lambda mv:mv.state != 'cancel')._set_quantity_done(each.product_qty)
         return res
 
 
